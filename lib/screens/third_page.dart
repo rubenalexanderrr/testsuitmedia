@@ -38,9 +38,8 @@ class _ThirdPageState extends State<ThirdPage> {
 
   bool get _isBottom {
     if (!_scrollController.hasClients) return false;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final current = _scrollController.position.pixels;
-    return current >= maxScroll * 0.9;
+    final threshold = 200;
+    return _scrollController.position.extentAfter < threshold;
   }
 
   Future<void> _onRefresh() async {
@@ -84,41 +83,47 @@ class _ThirdPageState extends State<ThirdPage> {
                   separatorBuilder: (_, __) => Divider(height: 1),
                   itemBuilder: (context, index) {
                     if (index >= users.length) {
-                      return Padding(padding: const EdgeInsets.all(16.0));
+                      return const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Center(child: CircularProgressIndicator()),
+                      );
                     }
 
                     final user = users[index];
 
-                    return ListTile(
-                      minTileHeight: 80,
-                      leading: SizedBox(
-                        width: 48,
-                        height: 48,
-                        child: ClipOval(
-                          child: Image.network(
-                            user.avatar,
-                            fit: BoxFit.contain,
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30),
+                      child: ListTile(
+                        minTileHeight: 80,
+                        leading: SizedBox(
+                          width: 48,
+                          height: 48,
+                          child: ClipOval(
+                            child: Image.network(
+                              user.avatar,
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
-                      ),
-                      title: Text(
-                        user.fullName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
+                        title: Text(
+                          user.fullName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                      subtitle: Text(
-                        user.email,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 10,
+                        subtitle: Text(
+                          user.email,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10,
+                          ),
                         ),
+                        onTap: () {
+                          context.read<UserBloc>().add(SelectUser(user));
+                          Navigator.pop(context);
+                        },
                       ),
-                      onTap: () {
-                        context.read<UserBloc>().add(SelectUser(user));
-                        Navigator.pop(context);
-                      },
                     );
                   },
                 ),
