@@ -1,16 +1,24 @@
-# suitmediatest
+📱 Suitmedia Mobile Developer Test - Flutter
 
-A new Flutter project.
+Project ini merupakan implementasi test untuk posisi Mobile Developer dengan menggunakan Flutter, BLoC Pattern, dan API Pagination. Aplikasi terdiri dari tiga halaman utama dengan alur input nama, menampilkan nama yang dipilih, serta pengambilan data user dari API.
 
-## Getting Started
+🚀 Features
+1️⃣ First Screen
+- User memasukkan nama
+- Tombol untuk pindah ke Second Screen
+- Validasi palindrom (jika diperlukan)
 
-This project is a starting point for a Flutter application.
+2️⃣ Second Screen
+- Menampilkan nama yang dimasukkan pada First Screen
+- Menampilkan Selected User dari Third Screen (default: “Selected User Name”)
+- Tombol untuk menuju Third Screen
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3️⃣ Third Screen
+- Mengambil data user dari publik API (example: reqres.in)
+- Menampilkan list user dengan:
+    - Avatar
+    - Fullname
+    - Email
+- Infinite scroll / pagination
+- Pull-to-refresh
+- Klik salah satu user → kembali ke Second Screen dan menampilkan nama user terpilih
